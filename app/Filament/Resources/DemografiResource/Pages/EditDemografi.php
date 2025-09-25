@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\BeritaResource\Pages;
+namespace App\Filament\Resources\DemografiResource\Pages;
 
-use App\Filament\Resources\BeritaResource;
+use App\Filament\Resources\DemografiResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBerita extends EditRecord
+class EditDemografi extends EditRecord
 {
-    protected static string $resource = BeritaResource::class;
+    protected static string $resource = DemografiResource::class;
 
     protected function getHeaderActions(): array
     {

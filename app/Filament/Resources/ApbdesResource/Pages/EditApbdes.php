@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\BeritaResource\Pages;
+namespace App\Filament\Resources\ApbdesResource\Pages;
 
-use App\Filament\Resources\BeritaResource;
+use App\Filament\Resources\ApbdesResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBerita extends EditRecord
+class EditApbdes extends EditRecord
 {
-    protected static string $resource = BeritaResource::class;
+    protected static string $resource = ApbdesResource::class;
 
     protected function getHeaderActions(): array
     {

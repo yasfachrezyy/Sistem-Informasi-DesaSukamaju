@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\BeritaResource\Pages;
+namespace App\Filament\Resources\IdmResource\Pages;
 
-use App\Filament\Resources\BeritaResource;
+use App\Filament\Resources\IdmResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateBerita extends CreateRecord
+class CreateIdm extends CreateRecord
 {
-    protected static string $resource = BeritaResource::class;
+    protected static string $resource = IdmResource::class;
 
     // Kembali ke index jika telah selesai menambahkan data
     protected function getRedirectUrl(): string
