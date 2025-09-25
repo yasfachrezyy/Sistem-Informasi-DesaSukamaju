@@ -21,7 +21,7 @@ class InfografisController extends Controller
         $tahunTerbaru = Demografi::max('tahun') ?? now()->year;
         $demografi = Demografi::where('tahun', $tahunTerbaru)->first();
         $demografiDetail = DemografiDetail::where('tahun', $tahunTerbaru)->get();
-        return view('infografis/penduduk', compact('demografi', 'demografiDetail'));
+        return view('infografis.penduduk', compact('demografi', 'demografiDetail'));
     }
 
     public function apbdes()
