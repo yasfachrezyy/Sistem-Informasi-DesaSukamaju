@@ -20,9 +20,11 @@ class BelanjaController extends Controller
      * TAMBAHKAN METHOD BARU DI BAWAH INI
      * Menampilkan halaman detail untuk satu produk.
      */
-    public function showProduk(Produk $produk) // Laravel otomatis mencari produk berdasarkan slug dari URL
+    public function showProduk(Produk $produk) // Gunakan Route Model Binding
     {
-        // Langsung kirim data produk yang sudah ditemukan ke view
-        return view('belanja.show', compact('produk'));
+        // Variabel $produk akan otomatis ditemukan berdasarkan slug di URL
+        return view('belanja.show', [
+            'produk' => $produk
+        ]);
     }
 }

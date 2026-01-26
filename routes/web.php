@@ -4,10 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\InfografisController;
+use App\Http\Controllers\PetaController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Rute untuk Halaman Profil Desa
+Route::get('/profil', function () {
+    return view('profil'); // -> Menampilkan file resources/views/profil.blade.php
+})->name('profil');
 
 // Halaman daftar semua berita
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
@@ -33,3 +39,5 @@ Route::prefix('infografis')->name('infografis.')->group(function () {
     Route::get('/idm', [InfografisController::class, 'idm'])->name('idm');
     Route::get('/sdgs', [InfografisController::class, 'sdgs'])->name('sdgs');
 });
+
+Route::get('/peta-desa', [PetaController::class, 'index'])->name('peta.desa');

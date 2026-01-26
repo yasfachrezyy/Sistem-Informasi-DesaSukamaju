@@ -1,39 +1,32 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') - Infografis Desa</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; background-color: #f8f9fa; color: #343a40; margin: 0; }
-        .container { max-width: 1140px; margin: auto; padding: 2rem; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dee2e6; padding-bottom: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;}
-        .header-title h1 { margin: 0; color: #dc3545; font-size: 2rem; line-height: 1.2; }
-        .nav-menu { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .nav-button { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem; border-bottom: 3px solid transparent; color: #6c757d; font-weight: 600; transition: all 0.2s ease-in-out; }
-        .nav-button svg { width: 28px; height: 28px; }
-        .nav-button:hover { color: #212529; }
-        .nav-button.active { color: #dc3545; border-bottom-color: #dc3545; }
-        .content-section { background-color: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .section-title { font-size: 1.75rem; color: #2c3e50; margin-bottom: 1.5rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
-        .stat-card { text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; }
-        .stat-card .label { font-size: 1rem; color: #6c757d; }
-        .stat-card .value { font-size: 2.5rem; font-weight: bold; color: #3498db; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
-        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #dee2e6; }
-        th { background-color: #f8f9fa; }
-        .search-form { display: flex; gap: 10px; margin-bottom: 1rem; }
-        .search-form input { flex-grow: 1; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 4px; }
-        .search-form button { padding: 0.5rem 1rem; border: none; background-color: #3498db; color: white; border-radius: 4px; cursor: pointer; }
-        .search-result { padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-top: 1rem; background-color: #e9ecef; }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="header">
+@extends('layouts.app')
+
+@section('title', 'Infografis Desa')
+
+@section('content')
+
+{{-- Style khusus untuk halaman infografis --}}
+<style>
+    /* Menggunakan nama kelas yang unik untuk menghindari konflik dengan Bootstrap di layout utama */
+    .infografis-container { max-width: 1140px; margin: auto; padding: 2rem; }
+    .infografis-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dee2e6; padding-bottom: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;}
+    .header-title a { text-decoration: none; }
+    .header-title h1 { margin: 0; color: #008000; font-size: 2rem; line-height: 1.2; }
+    .nav-menu { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .nav-button { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem; border-bottom: 3px solid transparent; color: #6c757d; font-weight: 600; transition: all 0.2s ease-in-out; }
+    .nav-button svg { width: 28px; height: 28px; }
+    .nav-button:hover { color: #212529; }
+    .nav-button.active { color: #008000; border-bottom-color: #008000; }
+    .content-section { background-color: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .section-title { font-size: 1.75rem; color: #2c3e50; margin-bottom: 1.5rem; }
+</style>
+
+<div class="infografis-container">
+    <div class="infografis-header">
         <div class="header-title">
-            <h1>INFOGRAFIS<br>DESA KERSIK</h1>
+            <!-- Menambahkan link untuk kembali ke halaman utama -->
+            <a href="{{ url('/') }}">
+                <h1>INFOGRAFIS<br>DESA SUKAMAJU</h1>
+            </a>
         </div>
         <div class="nav-menu">
             <a href="{{ route('infografis.penduduk') }}" class="nav-button {{ request()->is('infografis/penduduk') ? 'active' : '' }}">
@@ -64,8 +57,10 @@
     </div>
 
     <main class="content-section">
-        @yield('content')
+        @yield('infografis_content')
     </main>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@stack('scripts')
+@endsection
+

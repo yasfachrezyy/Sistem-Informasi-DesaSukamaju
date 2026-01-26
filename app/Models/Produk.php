@@ -12,7 +12,8 @@ class Produk extends Model
     use HasFactory;
 
     protected $guarded = []; // Izinkan mass assignment untuk semua field
-
+    protected $table = 'produks';
+    protected $primaryKey = 'id';
     /**
      * Get the umkm that owns the Produk
      *
