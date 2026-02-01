@@ -20,12 +20,12 @@
         margin-bottom: 0.8rem;
     }
     .footer-link:hover {
-        color: #20c997; /* Warna Hijau Aksen */
+        color: #198754; /* Hijau Utama */
         padding-left: 5px;
     }
     .footer-contact i {
         width: 25px;
-        color: #20c997;
+        color: #198754; /* Hijau Utama */
     }
     .social-btn {
         width: 36px;
@@ -41,7 +41,7 @@
         margin-right: 10px;
     }
     .social-btn:hover {
-        background-color: #20c997;
+        background-color: #198754; /* Hijau Utama */
         color: #fff;
     }
 </style>
@@ -82,12 +82,16 @@
             {{-- Kolom 3: Layanan --}}
             <div class="col-lg-2 col-md-6">
                 <h5 class="footer-title">Layanan</h5>
-                <a href="#" class="footer-link">Cek Bansos</a>
+                
+                {{-- LINK CEK BANSOS DIPERBAIKI DI SINI --}}
+                <a href="{{ route('infografis.bansos') }}" class="footer-link">Cek Bansos</a>
+                
                 <a href="#" class="footer-link">Informasi Publik</a>
+                <a href="/admin" class="footer-link">Login Admin</a>
             </div>
 
             {{-- Kolom 4: Kontak --}}
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6" id="hubungi-kami"> 
                 <h5 class="footer-title">Hubungi Kami</h5>
                 <ul class="list-unstyled footer-contact">
                     <li class="mb-3 d-flex text-start">
@@ -112,7 +116,8 @@
         <div class="container text-center">
             <small class="mb-0">
                 &copy; {{ date('Y') }} <strong>Pemerintah Desa Sukamaju</strong>. Hak Cipta Dilindungi.
-                <span class="d-none d-sm-inline">| Dibuat dengan <i class="bi bi-heart-fill text-danger" style="font-size: 0.8rem;"></i> untuk Warga.</span>
+                {{-- TEXT DIBUAT OLEH DIPERBAIKI DI SINI --}}
+                <span class="d-none d-sm-inline">| Dibuat Oleh Mahasiswa KKN UNSUR 2025 untuk Desa Sukamaju.</span>
             </small>
         </div>
     </div>

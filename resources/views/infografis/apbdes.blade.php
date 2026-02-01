@@ -96,7 +96,7 @@
             <form action="{{ route('infografis.apbdes') }}" method="GET">
                 <div class="input-group shadow-sm rounded-pill overflow-hidden border">
                     <span class="input-group-text bg-white border-0 ps-3 fw-bold text-secondary small text-uppercase">Tahun</span>
-                    <select name="tahun" id="tahun" class="form-select border-0 bg-light fw-bold text-dark text-center" style="cursor: pointer;" onchange="this.form.submit()">
+                    <select name="tahun" class="form-select border-0 bg-light fw-bold text-success text-center" style="cursor: pointer;" onchange="this.form.submit()">
                         @forelse($years as $year)
                             <option value="{{ $year }}" {{ $currentYear == $year ? 'selected' : '' }}>
                                 {{ $year }}

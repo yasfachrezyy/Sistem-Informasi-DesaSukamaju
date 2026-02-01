@@ -14,7 +14,7 @@
                     <div class="card card-struktur border-0 shadow-sm text-center h-100 bg-white">
                         <div class="position-relative">
                             <img src="{{ $orang->foto ? asset('storage/' . $orang->foto) : 'https://ui-avatars.com/api/?name='.urlencode($orang->nama).'&background=008000&color=fff' }}" 
-                                 class="card-img-top shadow-sm border border-3 border-white" 
+                                 class="card-img-top shadow-sm border border-white" 
                                  alt="{{ $orang->nama }}">
                         </div>
                         <div class="card-body">

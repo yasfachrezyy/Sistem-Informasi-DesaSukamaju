@@ -17,11 +17,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+
 class AparaturResource extends Resource
 {
     protected static ?string $model = Aparatur::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // REVISI: Ikon diganti menjadi grup pengguna agar lebih profesional
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -38,9 +40,9 @@ class AparaturResource extends Resource
                         ->placeholder('Contoh: Kepala Desa / Sekretaris Desa'),
                     
                     FileUpload::make('foto')
-                        ->image() // Memastikan hanya file gambar
-                        ->directory('aparatur') // Folder di storage/app/public/aparatur
-                        ->disk('public') // Menggunakan disk public
+                        ->image() 
+                        ->directory('aparatur') 
+                        ->disk('public') 
                         ->required(),
                     
                     TextInput::make('urutan')
@@ -85,6 +87,7 @@ class AparaturResource extends Resource
                 ]),
             ]);
     }
+    
     public static function getRelations(): array
     {
         return [

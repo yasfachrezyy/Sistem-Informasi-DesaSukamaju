@@ -18,11 +18,13 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
+
 class ProfilDesaResource extends Resource
 {
     protected static ?string $model = ProfilDesa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // REVISI: Menggunakan ikon home-modern untuk merepresentasikan profil wilayah/kantor desa
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
 
     public static function form(Form $form): Form
     {
@@ -38,7 +40,8 @@ class ProfilDesaResource extends Resource
                             ]),
                         Tabs\Tab::make('Wilayah & Peta')
                             ->schema([
-                                Textarea::make('iframe_peta'),
+                                Textarea::make('iframe_peta')
+                                    ->helperText('Tempelkan kode iframe dari Google Maps di sini'),
                                 RichEditor::make('deskripsi_wilayah'),
                             ]),
                     ])->columnSpanFull()
@@ -54,28 +57,24 @@ class ProfilDesaResource extends Resource
     {
         return $table
             ->columns([
-                // Menampilkan ID
                 TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
 
-                // Menampilkan cuplikan sejarah (dipotong agar tidak kepanjangan)
                 TextColumn::make('sejarah')
-                    ->limit(50) // Hanya tampilkan 50 karakter awal
-                    ->html()    // Karena isinya HTML dari RichEditor
+                    ->limit(50) 
+                    ->html()    
                     ->label('Cuplikan Sejarah'),
 
-                // Menampilkan kapan terakhir kali admin mengubah profil
                 TextColumn::make('updated_at')
                     ->label('Terakhir Diupdate')
-                    ->dateTime('d M Y H:i') // Format: 01 Feb 2026 12:00
+                    ->dateTime('d M Y H:i') 
                     ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                // Tombol Edit agar bisa langsung masuk ke form
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
