@@ -5,286 +5,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selamat Datang di Website Resmi Desa Sukamaju</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Fonts (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
+            padding-top: 76px;
         }
 
         :root {
-            --primary-color: #008000; /* Warna hijau utama */
-            --secondary-color: #0f5132; /* Warna hijau tua */
+            --primary-color: #008000;
+            --secondary-color: #0f5132;
         }
 
+        /* Navbar Styling */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 12px 0;
         }
-
-        .navbar-brand img {
-            max-height: 40px;
-        }
-
         .nav-link {
             font-weight: 500;
-            color: #333;
+            color: #444;
+            padding: 8px 16px !important;
+            transition: all 0.3s;
         }
-
         .nav-link.active, .nav-link:hover {
             color: var(--primary-color);
         }
 
+        /* Hero Carousel */
         .hero-carousel .carousel-item {
-            height: 85vh;
-            min-height: 400px;
+            height: 90vh;
+            min-height: 500px;
             background-size: cover;
             background-position: center;
-        }
-
-        .hero-carousel .carousel-caption {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            bottom: 10%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-weight: 600;
             position: relative;
         }
+        .hero-carousel .carousel-item::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); 
+        }
+        .hero-carousel .carousel-caption {
+            bottom: 30%;
+            z-index: 2;
+        }
+        .hero-carousel h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            position: relative;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         .section-title::after {
             content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
+            display: block;
+            width: 60px;
             height: 4px;
-            background-color: var(--primary-color);
+            background: var(--primary-color);
+            margin: 15px auto 0;
             border-radius: 2px;
         }
 
-        h3[id] {
-            scroll-margin-top: 100px; 
+        /* Card Effects */
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
         }
 
-        .stat-card-admin {
-            background-color: #fff;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,.08);
-            transition: transform 0.3s ease;
-            border-top: 5px solid #008000; /* Blue accent color */
+        /* Dashboard Widget Style (Untuk Admin & APB) */
+        .dashboard-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
             height: 100%;
+            transition: transform 0.3s ease;
         }
-        .stat-card-admin:hover {
+        .dashboard-card:hover {
             transform: translateY(-5px);
         }
-        .stat-card-admin .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #0f5132; /* Blue accent color */
-            margin-bottom: 0.5rem;
+        .dashboard-header {
+            padding: 20px 25px;
+            background: linear-gradient(to right, #f8f9fa, #fff);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
         }
-        .stat-card-admin .stat-title {
-            font-size: 1.1rem;
-            color: #6c757d;
-        }
-
-        .apb-item {
-            border-left: 5px solid #008000;
-            padding-left: 1.5rem;
-        }
-        .apb-item .apb-title {
-            color: #6c757d;
-            margin-bottom: 0.25rem;
-        }
-        .apb-item .apb-amount {
-            font-weight: 700;
-            font-size: 2.25rem;
-            color: #212529;
-        }
-
-        .card-news, .card-official, .card-potential {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .card-news:hover, .card-official:hover, .card-potential:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,.15);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+        .icon-box {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.25rem;
         }
         
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: #fff;
-        }
-
-
-        .sambutan-img {
-            max-width: 300px;
-            border: 5px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,.1);
-        }
-        
-        .potential-icon i {
-            font-size: 3rem;
-            color: var(--primary-color);
-        }
-
+        /* Footer */
         .footer {
-            background-color: #212529;
-            color: #f8f9fa;
+            background-color: #222;
+            color: #bbb;
         }
-        .footer a {
-            color: #adb5bd;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            color: #fff;
-        }
+        .footer a:hover { color: var(--primary-color); }
 
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <!-- GANTI NAMA FILE GAMBAR -->
-                <img src="{{ asset('images/logo-desa.png') }}" alt="Logo Desa Sukamaju">
-                <strong class="ms-2">Desa Sukamaju</strong>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ asset('images/logo-desa.png') }}" alt="Logo" height="40">
+                <div class="d-flex flex-column ms-2">
+                    <span class="fw-bold text-dark lh-1">Desa Sukamaju</span>
+                    <span style="font-size: 0.75rem; color: #666;">Kabupaten Cianjur</span>
+                </div>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- ================== BAGIAN MENU YANG DIPERBARUI ================== -->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profil') }}">Profil Desa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('infografis.index') }}">Infografis</a>
-                    </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href=#>Listing</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#berita">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=#>Belanja</a>
-                    </li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Desa</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('infografis.*') ? 'active' : '' }}" href="{{ route('infografis.index') }}">Infografis</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}" href="{{ route('berita.index') }}">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('belanja.*') ? 'active' : '' }}" href="{{ route('belanja.umkm') }}">Belanja</a></li>
                 </ul>
-                <!-- ================== AKHIR BAGIAN MENU ================== -->
-
-                <div class="ms-lg-3 mt-2 mt-lg-0">
-                    <a href="/admin" class="btn btn-outline-primary">
-                        <i class="bi bi-box-arrow-in-right"></i> Login Admin
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <a href="/admin" class="btn btn-primary px-4 rounded-pill">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section Carousel -->
     <header id="hero-carousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2"></button>
         </div>
         <div class="carousel-inner">
-            <!-- GANTI NAMA FILE GAMBAR -->
             <div class="carousel-item active" style="background-image: url('{{ asset('images/kantor-desa.jpg') }}');">
-                <div class="carousel-caption d-none d-md-block">
-                    <h1>Selamat Datang di Desa Sukamaju</h1>
-                    <p>Membangun Bersama untuk Desa yang Maju, Mandiri, dan Sejahtera.</p>
+                <div class="carousel-caption">
+                    <h1>Selamat Datang</h1>
+                    <p class="fs-5">Website Resmi Pemerintah Desa Sukamaju, Kabupaten Cianjur.</p>
                 </div>
             </div>
-            <!-- GANTI NAMA FILE GAMBAR -->
             <div class="carousel-item" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Potensi Alam yang Indah</h2>
-                    <p>Menjelajahi keindahan alam dan potensi agrowisata di Desa Sukamaju.</p>
+                <div class="carousel-caption">
+                    <h1>Potensi Alam</h1>
+                    <p class="fs-5">Menjelajahi keindahan alam dan potensi agrowisata desa.</p>
                 </div>
             </div>
-            <!-- GANTI NAMA FILE GAMBAR -->
             <div class="carousel-item" style="background-image: url('{{ asset('images/phbn.jpg') }}');">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Kegiatan Masyarakat</h2>
-                    <p>Semangat gotong royong dan kebersamaan warga dalam setiap kegiatan desa.</p>
+                <div class="carousel-caption">
+                    <h1>Guyub Rukun</h1>
+                    <p class="fs-5">Semangat gotong royong dan kebersamaan warga masyarakat.</p>
                 </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="carousel-control-prev-icon"></span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="carousel-control-next-icon"></span>
         </button>
     </header>
 
     <main>
-        <!-- Sambutan Kepala Desa -->
-        <section id="sambutan" class="py-5">
-            <div class="container">
-                <div class="row align-items-center">
+        <section id="sambutan" class="py-5 bg-white">
+            <div class="container py-4">
+                <div class="row align-items-center g-5">
                     <div class="col-lg-4 text-center">
-                        <!-- GANTI NAMA FILE GAMBAR -->
-                        <img src="{{ asset('images/struktural/kades.jpg') }}" class="img-fluid rounded-circle sambutan-img" alt="Kepala Desa Sukamaju">
+                        <div class="position-relative d-inline-block">
+                            <img src="{{ asset('images/struktural/kades.jpg') }}" class="img-fluid rounded-circle shadow" style="width: 280px; height: 280px; object-fit: cover; border: 8px solid #f8f9fa;" alt="Kepala Desa">
+                            <div class="badge bg-success text-white px-4 py-2 rounded-pill position-absolute bottom-0 start-50 translate-middle-x shadow-sm">
+                                <span class="fw-bold">Kepala Desa</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-8 mt-4 mt-lg-0">
-                        <h2 class="fw-bold">Sambutan Kepala Desa</h2>
-                        <h4 class="text-muted mb-3">Hendri, S.IP</h4>
-                        <p>Assalamualaikum Wr. Wb.</p>
-                        <p>Puji syukur kehadirat Allah SWT atas rahmat dan karunia-Nya sehingga website resmi Desa Sukamaju ini dapat kami hadirkan. Website ini merupakan wujud komitmen kami dalam memberikan transparansi informasi dan pelayanan publik yang lebih baik kepada seluruh masyarakat.</p>
-                        <p>Kami berharap, melalui media ini, masyarakat dapat lebih mudah mengakses informasi seputar program desa, berita terkini, serta potensi yang ada di Desa Sukamaju. Mari bersama-sama kita bangun desa kita tercinta.</p>
-                        <p>Wassalamualaikum Wr. Wb.</p>
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold text-dark mb-2">Sambutan Kepala Desa</h2>
+                        <h4 class="text-success mb-4">Hendri, S.IP</h4>
+                        <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                            "Assalamualaikum Wr. Wb. Puji syukur kehadirat Allah SWT. Website ini hadir sebagai wujud transparansi dan peningkatan pelayanan publik. Kami berkomitmen untuk mewujudkan Desa Sukamaju yang Mandiri, Sejahtera, dan Berakhlak Mulia melalui pemanfaatan teknologi informasi."
+                        </p>
+                        <div class="mt-4">
+                            <a href="{{ route('profil') }}" class="btn btn-outline-success rounded-pill px-4">
+                                Baca Profil Lengkap <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -292,57 +230,85 @@
 
         @include('partials._jelajahi')
         @include('partials._peta')
-        @include('partials._aparatur')
-        @include('partials._administrasi')
-        @include('partials._apb')
 
-        <!-- Berita Terkini -->
-        <section id="berita" class="py-5 bg-light">
+        <section class="py-5 bg-light position-relative">
             <div class="container">
-                <h2 class="section-title">Berita Terkini</h2>
-                <div class="row g-4">
-                    <!-- Contoh Berita 1 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card card-news h-100">
-                             <!-- GANTI NAMA FILE GAMBAR -->
-                            <img src="{{ asset('images/berita-1.jpg') }}" class="card-img-top" alt="Berita 1">
-                            <div class="card-body d-flex flex-column">
-                                <div>
-                                    <small class="text-muted">21 September 2025</small>
-                                    <h5 class="card-title mt-2">Penyaluran Bantuan Langsung Tunai (BLT) Tahap III</h5>
-                                    <p class="card-text">Pemerintah Desa Sukamaju telah berhasil menyalurkan BLT tahap ketiga kepada 150 keluarga penerima manfaat...</p>
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Pemerintahan Desa</h2>
+                    <p class="text-muted">Aparatur desa yang siap melayani masyarakat</p>
+                </div>
+
+                <div class="row g-4 gy-5 justify-content-center">
+                    @foreach($aparaturs->take(4) as $orang)
+                    <div class="col-lg-3 col-md-6 pt-4"> <div class="card h-100 border-0 shadow-sm text-center card-hover-effect" style="border-radius: 20px; overflow: visible;">
+                            <div class="position-relative">
+                                <img src="{{ $orang->foto ? asset('storage/' . $orang->foto) : 'https://ui-avatars.com/api/?name='.urlencode($orang->nama) }}" 
+                                     class="rounded-circle shadow-sm bg-white" 
+                                     style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #fff; margin-top: -60px;"
+                                     alt="{{ $orang->nama }}">
+                            </div>
+                            <div class="card-body pt-4 pb-4">
+                                <h5 class="fw-bold text-dark mb-1">{{ $orang->nama }}</h5>
+                                <div class="d-inline-block px-3 py-1 rounded-pill bg-light text-success fw-bold small text-uppercase mt-2 border border-success-subtle">
+                                    {{ $orang->jabatan }}
                                 </div>
-                                <a href="#" class="btn btn-primary mt-auto">Baca Selengkapnya</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Contoh Berita 2 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card card-news h-100">
-                             <!-- GANTI NAMA FILE GAMBAR -->
-                            <img src="{{ asset('images/berita-2.jpg') }}" class="card-img-top" alt="Berita 2">
-                            <div class="card-body d-flex flex-column">
-                                <div>
-                                    <small class="text-muted">18 September 2025</small>
-                                    <h5 class="card-title mt-2">Kerja Bakti Membersihkan Saluran Irigasi Desa</h5>
-                                    <p class="card-text">Warga Dusun Cibeureum bergotong-royong membersihkan saluran irigasi untuk persiapan musim tanam mendatang...</p>
+                    @endforeach
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="{{ route('profil') }}#aparatur" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                        Lihat Seluruh Aparatur
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5 bg-white">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <div class="dashboard-card">
+                            <div class="dashboard-header">
+                                <div class="icon-box bg-success-subtle text-success">
+                                    <i class="bi bi-people-fill"></i>
                                 </div>
-                                <a href="#" class="btn btn-primary mt-auto">Baca Selengkapnya</a>
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark">Demografi Penduduk</h4>
+                                    <small class="text-muted">Update Data Terbaru</small>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                @include('partials._administrasi')
+                                <div class="mt-4 text-center">
+                                    <a href="{{ route('infografis.index') }}" class="btn btn-sm btn-outline-dark rounded-pill px-4">
+                                        Lihat Statistik Lengkap <i class="bi bi-chevron-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Contoh Berita 3 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card card-news h-100">
-                            <!-- GANTI NAMA FILE GAMBAR -->
-                            <img src="{{ asset('images/berita-3.jpg') }}" class="card-img-top" alt="Berita 3">
-                            <div class="card-body d-flex flex-column">
-                                <div>
-                                    <small class="text-muted">15 September 2025</small>
-                                    <h5 class="card-title mt-2">Pelatihan UMKM: Peningkatan Kualitas Produk Lokal</h5>
-                                    <p class="card-text">Dinas Koperasi dan UMKM mengadakan pelatihan bagi para pelaku usaha mikro di balai desa Sukamaju...</p>
+
+                    <div class="col-lg-6">
+                        <div class="dashboard-card">
+                            <div class="dashboard-header">
+                                <div class="icon-box bg-warning-subtle text-warning">
+                                    <i class="bi bi-wallet2"></i>
                                 </div>
-                                <a href="#" class="btn btn-primary mt-auto">Baca Selengkapnya</a>
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark">APB Desa 2024</h4>
+                                    <small class="text-muted">Transparansi Anggaran</small>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                @include('partials._apb')
+                                <div class="mt-4 text-center">
+                                    <a href="{{ route('infografis.apbdes') }}#apb" class="btn btn-sm btn-outline-dark rounded-pill px-4">
+                                        Rincian Realisasi <i class="bi bi-chevron-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -350,37 +316,79 @@
             </div>
         </section>
 
-        <!-- Potensi Desa -->
-        <section id="potensi" class="py-5">
+        <section id="berita" class="py-5 bg-light">
             <div class="container">
-                <h2 class="section-title">Potensi Desa</h2>
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h2 class="section-title mb-0 text-start m-0">Kabar Desa</h2>
+                    <a href="{{ route('berita.index') }}" class="btn btn-link text-success text-decoration-none fw-bold">
+                        Lihat Semua <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="row g-4">
+                    @forelse($beritas->take(3) as $item)
+                    <div class="col-md-4">
+                        <div class="card card-news h-100 shadow-sm border-0 rounded-4 overflow-hidden card-hover-effect">
+                            <div class="position-relative">
+                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="{{ $item->judul }}">
+                                <div class="bg-success text-white position-absolute top-0 start-0 px-3 py-1 m-3 rounded-pill small fw-bold shadow">
+                                    Berita
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column p-4">
+                                <small class="text-muted mb-2 d-block">
+                                    <i class="bi bi-calendar3 me-1"></i> {{ $item->created_at->translatedFormat('d F Y') }}
+                                </small>
+                                <h5 class="card-title fw-bold mb-3 text-dark lh-sm">
+                                    <a href="{{ route('berita.show', $item->slug) }}" class="text-decoration-none text-dark stretched-link">
+                                        {{ Str::limit($item->judul, 50) }}
+                                    </a>
+                                </h5>
+                                <p class="card-text text-secondary small mb-4 flex-grow-1">
+                                    {{ Str::limit(strip_tags($item->konten), 90) }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="col-12 text-center py-5">
+                        <div class="text-muted fst-italic">Belum ada berita terbaru saat ini.</div>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+        </section>
+        
+        <section id="potensi" class="py-5 bg-white">
+            <div class="container">
+                <h2 class="section-title">Potensi Unggulan</h2>
                 <div class="row g-4 text-center">
                     <div class="col-md-6 col-lg-3">
-                        <div class="card card-potential p-4 h-100">
-                            <div class="potential-icon mb-3"><i class="bi bi-tree-fill"></i></div>
-                            <h4 class="fw-bold">Pertanian</h4>
-                            <p>Lahan sawah yang subur menjadi andalan utama dengan komoditas padi, jagung, dan palawija.</p>
+                        <div class="card h-100 p-4 border-0 shadow-sm bg-light card-hover-effect">
+                            <div class="mb-3 text-success"><i class="bi bi-tree-fill display-4"></i></div>
+                            <h5 class="fw-bold">Pertanian</h5>
+                            <p class="small text-muted mb-0">Lumbung padi berkualitas dengan sistem irigasi teknis.</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="card card-potential p-4 h-100">
-                            <div class="potential-icon mb-3"><i class="bi bi-piggy-bank-fill"></i></div>
-                            <h4 class="fw-bold">Peternakan</h4>
-                            <p>Peternakan sapi potong dan ayam kampung yang dikelola oleh kelompok ternak warga.</p>
+                        <div class="card h-100 p-4 border-0 shadow-sm bg-light card-hover-effect">
+                            <div class="mb-3 text-success"><i class="bi bi-shop display-4"></i></div>
+                            <h5 class="fw-bold">UMKM Kreatif</h5>
+                            <p class="small text-muted mb-0">Kerajinan bambu dan olahan makanan ringan khas.</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="card card-potential p-4 h-100">
-                            <div class="potential-icon mb-3"><i class="bi bi-shop"></i></div>
-                            <h4 class="fw-bold">UMKM</h4>
-                            <p>Produk unggulan seperti keripik singkong, gula aren, dan kerajinan tangan dari bambu.</p>
+                        <div class="card h-100 p-4 border-0 shadow-sm bg-light card-hover-effect">
+                            <div class="mb-3 text-success"><i class="bi bi-water display-4"></i></div>
+                            <h5 class="fw-bold">Wisata Alam</h5>
+                            <p class="small text-muted mb-0">Pesona curug dan pemandangan persawahan.</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <div class="card card-potential p-4 h-100">
-                            <div class="potential-icon mb-3"><i class="bi bi-geo-alt-fill"></i></div>
-                            <h4 class="fw-bold">Pariwisata</h4>
-                            <p>Potensi wisata alam curug (air terjun) dan area perkemahan yang masih asri dan alami.</p>
+                        <div class="card h-100 p-4 border-0 shadow-sm bg-light card-hover-effect">
+                            <div class="mb-3 text-success"><i class="bi bi-people-fill display-4"></i></div>
+                            <h5 class="fw-bold">SDM Unggul</h5>
+                            <p class="small text-muted mb-0">Masyarakat guyub dan inovatif.</p>
                         </div>
                     </div>
                 </div>
@@ -388,46 +396,9 @@
         </section>
 
     </main>
-    
-    <!-- Footer -->
-    <footer class="footer pt-5 pb-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Desa Sukamaju</h5>
-                    <p>Mewujudkan desa yang adil, makmur, dan sejahtera melalui pembangunan yang partisipatif dan berkelanjutan.</p>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Profil Desa</a></li>
-                        <li><a href="#">Berita</a></li>
-                        <li><a href="#">Galeri</a></li>
-                        <li><a href="#">Kontak Kami</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Kontak</h5>
-                    <p><i class="bi bi-geo-alt-fill me-2"></i>Jl. Raya Sukamaju No. 1, Kec. Cibeber, Kab. Cianjur, Jawa Barat 43262</p>
-                    <p><i class="bi bi-telephone-fill me-2"></i>(0263) 123-456</p>
-                    <p><i class="bi bi-envelope-fill me-2"></i>kontak@sukamaju.desa.id</p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                     <h5 class="mb-3 fw-bold">Lokasi Kami</h5>
-                     <!-- GANTI SRC DENGAN EMBED GOOGLE MAPS DESA ANDA -->
-                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.95761560737!2d107.08643869999999!3d-6.8918239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6857e84166c3c7%3A0x6b4c304d3d789e92!2sSukamaju%2C%2C%20Cianjur%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1663742813589!5m2!1sen!2sid" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-            <hr>
-            <div class="row text-center">
-                <p>&copy; 2025 Hak Cipta Dilindungi - Pemerintah Desa Sukamaju</p>
-            </div>
-        </div>
-    </footer>
 
+    @include('partials._footer')
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

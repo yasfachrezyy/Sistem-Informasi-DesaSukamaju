@@ -4,164 +4,176 @@
 
 @section('infografis_content')
 
-{{-- Gaya Kustom untuk Kartu Statistik --}}
+{{-- Gaya Kustom --}}
 <style>
-    .stat-card {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.25rem;
-        background-color: #fff;
-        border: 1px solid #e9ecef;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .sdg-card-main {
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
     }
-    .stat-card:hover {
+    .sdg-card-main:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.07);
     }
-    .stat-card .icon-container {
-        flex-shrink: 0;
-        width: 56px;
-        height: 56px;
+    .sdg-card-main::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
-    .stat-card .icon-container svg {
-        width: 28px;
-        height: 28px;
+    .sdg-icon-large {
+        font-size: 3.5rem;
+        color: rgba(255, 255, 255, 0.8);
     }
-    .stat-card .info .label {
-        font-size: 0.95rem;
-        color: #6c757d;
-        margin: 0;
-        line-height: 1.4;
-    }
-    .stat-card .info .value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #212529;
-        line-height: 1.2;
-    }
-
-    /* Variasi Warna untuk Kartu SDGs */
-    .stat-card.sdg-total .icon-container { background-color: #e3f2fd; }
-    .stat-card.sdg-total .icon-container svg { color: #2196f3; }
-
-    .stat-card.sdg-1 .icon-container { background-color: #fdeeee; }
-    .stat-card.sdg-1 .icon-container svg { color: #e5243b; }
-
-    .stat-card.sdg-2 .icon-container { background-color: #fef8e7; }
-    .stat-card.sdg-2 .icon-container svg { color: #dda63a; }
-
-    .stat-card.sdg-3 .icon-container { background-color: #eef8f5; }
-    .stat-card.sdg-3 .icon-container svg { color: #4c9f38; }
-
 </style>
 
-    <h2 class="section-title">SDGs (Tujuan Pembangunan Berkelanjutan) Desa</h2>
-    @if(isset($sdg) && $sdg)
-        <div class="grid">
-            <div class="stat-card sdg-total">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
-                </div>
-                <div class="info">
-                    <div class="label">Skor Total SDGs</div>
-                    <div class="value">{{ number_format($sdg->skor_total, 2) }}</div>
-                </div>
+{{-- Header & Filter Tahun --}}
+<div class="row align-items-center mb-5 gy-3">
+    <div class="col-md-8">
+        <h2 class="section-title mb-0 text-center text-md-start">Capaian SDGs Desa {{ $currentYear }}</h2>
+        <p class="text-muted text-center text-md-start mb-0">Tujuan Pembangunan Berkelanjutan Desa.</p>
+    </div>
+    <div class="col-md-4">
+        <form action="{{ route('infografis.sdgs') }}" method="GET">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden border">
+                <span class="input-group-text bg-white border-0 ps-3 fw-bold text-secondary small text-uppercase">Tahun</span>
+                <select name="tahun" class="form-select border-0 bg-light fw-bold text-dark text-center" style="cursor: pointer;" onchange="this.form.submit()">
+                    @forelse($years as $year)
+                        <option value="{{ $year }}" {{ $currentYear == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    @empty
+                        <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                    @endforelse
+                </select>
             </div>
-            <div class="stat-card sdg-1">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" /></svg>
-                </div>
-                <div class="info">
-                    <div class="label">1. Desa Tanpa Kemiskinan</div>
-                    <div class="value">{{ number_format($sdg->desa_tanpa_kemiskinan, 2) }}</div>
-                </div>
-            </div>
-            <div class="stat-card sdg-2">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9.75-2.25 9.75m16.5 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-9.152 9.152a.75.75 0 0 0-1.06 0l-4.5 4.5a.75.75 0 0 0 1.06 1.06l4.5-4.5a.75.75 0 0 0 0-1.06Zm4.5-4.5a.75.75 0 0 0-1.06 0l-4.5 4.5a.75.75 0 0 0 1.06 1.06l4.5-4.5a.75.75 0 0 0 0-1.06Z" /></svg>
-                </div>
-                <div class="info">
-                    <div class="label">2. Desa Tanpa Kelaparan</div>
-                    <div class="value">{{ number_format($sdg->desa_tanpa_kelaparan, 2) }}</div>
-                </div>
-            </div>
-            <div class="stat-card sdg-3">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
-                </div>
-                <div class="info">
-                    <div class="label">3. Desa Sehat Sejahtera</div>
-                    <div class="value">{{ number_format($sdg->desa_sehat_sejahtera, 2) }}</div>
+        </form>
+    </div>
+</div>
+
+@if(isset($sdg) && $sdg)
+    {{-- 1. Skor Rata-rata (Highlight) --}}
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card sdg-card-main shadow-lg p-4">
+                <div class="d-flex align-items-center justify-content-between position-relative z-1">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase ls-1 mb-2">Skor Rata-Rata SDGs</h6>
+                        <h1 class="display-3 fw-bold mb-0">{{ number_format($sdg->skor_total, 2) }}</h1>
+                        <p class="mb-0 mt-2 text-white-50 small"><i class="bi bi-info-circle me-1"></i> Dari skala 0 - 100</p>
+                    </div>
+                    <div class="sdg-icon-large pe-3">
+                        <i class="bi bi-globe-americas"></i>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div style="max-width: 900px; margin: 3rem auto;">
-            <h3 style="text-align: center; margin-bottom: 1.5rem;">Skor Komponen SDGs Desa</h3>
+    {{-- Persiapkan Data Chart dari Kolom Database --}}
+    @php
+        // Mapping Label ke Data Database
+        $goals = [
+            '1. Desa Tanpa Kemiskinan' => $sdg->desa_tanpa_kemiskinan,
+            '2. Desa Tanpa Kelaparan' => $sdg->desa_tanpa_kelaparan,
+            '3. Desa Sehat & Sejahtera' => $sdg->desa_sehat_sejahtera,
+            '4. Pendidikan Berkualitas' => $sdg->pendidikan_desa_berkualitas,
+            '5. Keterlibatan Perempuan' => $sdg->keterlibatan_perempuan_desa,
+            '6. Layak Air Bersih' => $sdg->desa_layak_air_bersih,
+            '7. Energi Bersih' => $sdg->desa_berenergi_bersih,
+            '8. Pertumbuhan Ekonomi' => $sdg->pertumbuhan_ekonomi_merata,
+            '9. Infrastruktur & Inovasi' => $sdg->infrastruktur_inovasi,
+            '10. Desa Tanpa Kesenjangan' => $sdg->desa_tanpa_kesenjangan,
+            '11. Pemukiman Aman' => $sdg->kawasan_pemukiman_aman,
+            '12. Konsumsi Sadar Lingkungan' => $sdg->konsumsi_produksi_sadar_lingkungan,
+            '13. Tanggap Perubahan Iklim' => $sdg->desa_tanggap_perubahan_iklim,
+            '14. Peduli Lingkungan Laut' => $sdg->desa_peduli_lingkungan_laut,
+            '15. Peduli Lingkungan Darat' => $sdg->desa_peduli_lingkungan_darat,
+            '16. Damai & Berkeadilan' => $sdg->desa_damai_berkeadilan,
+            '17. Kemitraan Pembangunan' => $sdg->kemitraan_pembangunan_desa,
+            '18. Kelembagaan Dinamis' => $sdg->kelembagaan_desa_dinamis,
+        ];
+        
+        // Mengubah array PHP ke JSON untuk JS
+        $labels = json_encode(array_keys($goals));
+        $data = json_encode(array_values($goals));
+    @endphp
+
+    {{-- 2. Grafik Batang Horizontal --}}
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <h5 class="fw-bold text-secondary mb-4 text-center">Detail Capaian Per Tujuan (Goal)</h5>
+        <div style="height: 800px; position: relative;">
             <canvas id="sdgsChart"></canvas>
         </div>
-    @else
-        <p>Data SDGs belum diisi atau tidak tersedia saat ini.</p>
-    @endif
+    </div>
+
+@else
+    <div class="alert alert-warning text-center mt-4 d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 py-4">
+        <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+        <div class="text-center text-md-start">
+            <strong>Data Tidak Ditemukan!</strong><br>
+            Belum ada data SDGs yang diinput untuk tahun <strong>{{ $currentYear }}</strong>.
+        </div>
+    </div>
+@endif
+
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     @if(isset($sdg) && $sdg)
     const ctxSdgs = document.getElementById('sdgsChart').getContext('2d');
     
-    // Anggap saja kita punya lebih banyak data di variabel $sdg
-    const sdgLabels = [
-        '1. Tanpa Kemiskinan', 
-        '2. Tanpa Kelaparan', 
-        '3. Sehat & Sejahtera',
-        '4. Pendidikan Berkualitas',
-        '5. Kesetaraan Gender',
-        '6. Air Bersih & Sanitasi'
-    ];
-    const sdgData = [
-        {{ $sdg->desa_tanpa_kemiskinan }},
-        {{ $sdg->desa_tanpa_kelaparan }},
-        {{ $sdg->desa_sehat_sejahtera }},
-        {{ $sdg->pendidikan_berkualitas ?? 0 }}, // Gunakan null coalescing jika data mungkin tidak ada
-        {{ $sdg->kesetaraan_gender ?? 0 }},
-        {{ $sdg->air_bersih_sanitasi ?? 0 }}
+    // Array Warna SDGs Global (Approximation)
+    const sdgColors = [
+        '#e5243b', '#dda63a', '#4c9f38', '#c5192d', '#ff3a21', '#26bde2', 
+        '#fcc30b', '#a21942', '#fd6925', '#dd1367', '#fd9d24', '#bf8b2e', 
+        '#3f7e44', '#0a97d9', '#56c02b', '#00689d', '#19486a', '#00689d'
     ];
 
     new Chart(ctxSdgs, {
         type: 'bar',
         data: {
-            labels: sdgLabels,
+            labels: {!! $labels !!},
             datasets: [{
-                label: 'Skor SDGs',
-                data: sdgData,
-                backgroundColor: 'rgba(220, 53, 69, 0.7)',
-                borderColor: 'rgba(220, 53, 69, 1)',
+                label: 'Skor Capaian',
+                data: {!! $data !!},
+                backgroundColor: sdgColors,
+                borderColor: sdgColors,
                 borderWidth: 1,
-                borderRadius: 5
+                borderRadius: 4,
+                barPercentage: 0.7
             }]
         },
         options: {
-            indexAxis: 'y', // Membuat bar chart menjadi horizontal
+            indexAxis: 'y', // Membuat bar chart horizontal
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
-                x: {
-                    beginAtZero: true,
-                    suggestedMax: 100 // Asumsi skor maksimal 100
+                x: { 
+                    beginAtZero: true, 
+                    max: 100,
+                    grid: { color: '#f0f0f0' }
+                }, 
+                y: { 
+                    ticks: { 
+                        autoSkip: false, 
+                        font: { size: 12, family: "'Poppins', sans-serif" } 
+                    },
+                    grid: { display: false }
                 }
             },
             plugins: {
-                legend: {
-                    display: false
-                },
+                legend: { display: false },
                 tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    padding: 12,
                     callbacks: {
                         label: function(context) {
                             return ' Skor: ' + context.parsed.x.toFixed(2);

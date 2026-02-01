@@ -1,232 +1,176 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Desa - Website Resmi Desa Sukamaju</title>
+@extends('layouts.app')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+@section('title', 'Profil Desa ' . ($profil->nama_desa ?? 'Sukamaju'))
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+@section('content')
 
-    <!-- Google Fonts (Poppins) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* Header Gradasi */
+    .page-header {
+        background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+        padding: 4rem 0 3rem;
+        margin-bottom: 3rem;
+        color: white;
+        border-radius: 0 0 50px 50px;
+    }
 
-    <!-- Custom CSS (Sama seperti welcome.blade.php) -->
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        }
+    /* Sticky Sidebar Navigation */
+    .sticky-nav {
+        position: sticky;
+        top: 100px;
+        z-index: 10;
+    }
+    
+    .nav-pills .nav-link {
+        color: #555;
+        background-color: white;
+        border: 1px solid #e9ecef;
+        margin-bottom: 0.5rem;
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s;
+        text-align: left;
+    }
+    
+    .nav-pills .nav-link:hover {
+        background-color: #f8f9fa;
+        transform: translateX(5px);
+    }
+    
+    .nav-pills .nav-link.active {
+        background-color: #198754;
+        color: white;
+        border-color: #198754;
+        box-shadow: 0 4px 6px rgba(25, 135, 84, 0.3);
+    }
 
-        :root {
-            --primary-color: #008000;
-            --secondary-color: #0f5132;
-        }
+    /* Smooth Scroll Offset (agar tidak tertutup navbar) */
+    html {
+        scroll-behavior: smooth;
+    }
+    section {
+        scroll-margin-top: 100px;
+    }
+</style>
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-
-        .navbar-brand img {
-            max-height: 40px;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: #333;
-        }
-
-        .nav-link.active, .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        h3[id] {
-           scroll-margin-top: 100px; 
-        }
-
-        .page-header {
-            padding-top: 120px; /* Jarak dari atas (setelah navbar) */
-            padding-bottom: 60px;
-            background-color: #e9ecef;
-        }
-
-        .misi-list {
-            padding-left: 0;
-            list-style: none;
-            counter-reset: misi-counter;
-        }
-        .misi-list li {
-            counter-increment: misi-counter;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-start;
-            line-height: 1.6;
-        }
-        .misi-list li::before {
-            content: counter(misi-counter);
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            font-size: 0.9rem;
-        }
+{{-- 1. Header Section --}}
+<div class="page-header text-center">
+    <div class="container">
+        <h1 class="fw-bold display-5 mb-2">Profil Desa {{ $profil->nama_desa ?? 'Sukamaju' }}</h1>
+        <p class="lead opacity-75">Mengenal lebih dekat sejarah, visi misi, dan struktur pemerintahan desa kami.</p>
         
-        .card-struktur {
-            border: none;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #fff;
-            /* padding-top: 60px; Dihapus dari sini */
-            margin-top: 60px;
-        }
-        .card-struktur:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,.15);
-        }
-        .card-struktur .card-img-top {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid #fff;
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 10px rgba(0,0,0,.1);
-        }
-        .card-struktur .card-body {
-            padding-top: 70px; /* Jarak ditambahkan di sini */
-        }
-        .jabatan-kades {
-            color: #dc3545;
-        }
-        .jabatan-lain {
-            color: #6c757d;
-        }
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" class="text-white text-decoration-none fw-bold">Beranda</a></li>
+                <li class="breadcrumb-item active text-white opacity-75" aria-current="page">Profil Desa</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 
-        .footer {
-            background-color: #212529;
-            color: #f8f9fa;
-        }
-        .footer a {
-            color: #adb5bd;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="{{ asset('images/logo-desa.png') }}" alt="Logo Desa Sukamaju">
-                <strong class="ms-2">Desa Sukamaju</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/profil">Profil Desa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/infografis">Infografis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/listing">Listing</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="/#berita">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/belanja">Belanja</a>
-                    </li>
-                </ul>
-                <div class="ms-lg-3 mt-2 mt-lg-0">
-                    <a href="/admin" class="btn btn-outline-primary">
-                        <i class="bi bi-box-arrow-in-right"></i> Login Admin
+<div class="container mb-5">
+    <div class="row g-5">
+        
+        {{-- 2. Sidebar Navigasi (Desktop Only) --}}
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="sticky-nav">
+                <h6 class="text-uppercase text-muted fw-bold mb-3 ls-1 small">Daftar Isi</h6>
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link" href="#tentang-desa">
+                        <i class="bi bi-info-circle me-2"></i> Tentang Desa
+                    </a>
+                    <a class="nav-link" href="#visi-misi">
+                        <i class="bi bi-bullseye me-2"></i> Visi & Misi
+                    </a>
+                    <a class="nav-link" href="#pemerintahan">
+                        <i class="bi bi-people-fill me-2"></i> Pemerintahan
+                    </a>
+                    <a class="nav-link" href="#peta-wilayah">
+                        <i class="bi bi-map-fill me-2"></i> Peta Wilayah
                     </a>
                 </div>
-            </div>
-        </div>
-    </nav>
 
-    <main>
-        <!-- Page Header -->
-        <div class="page-header">
-            <div class="container text-center">
-                <h1 class="display-4 fw-bold">Profil Desa Sukamaju</h1>
-                <p class="lead text-muted">Mengenal lebih dekat tentang Sejarah, Visi & Misi, serta Pemerintahan Desa.</p>
+                {{-- Widget Kontak Kecil --}}
+                <div class="card border-0 bg-light rounded-4 mt-4 p-3">
+                    <h6 class="fw-bold mb-2">Butuh Bantuan?</h6>
+                    <p class="small text-muted mb-3">Hubungi layanan pengaduan atau informasi desa.</p>
+                    <a href="#" class="btn btn-outline-success btn-sm rounded-pill w-100 fw-bold">Hubungi Kami</a>
+                </div>
             </div>
         </div>
 
-        <!-- Memanggil Partial Konten Profil -->
-        @include('partials._profil')
-    </main>
-    
-    <!-- Footer -->
-    <footer id="kontak" class="footer pt-5 pb-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Desa Sukamaju</h5>
-                    <p>Mewujudkan desa yang adil, makmur, dan sejahtera melalui pembangunan yang partisipatif dan berkelanjutan.</p>
+        {{-- 3. Konten Utama --}}
+        <div class="col-lg-9">
+            
+            {{-- Bagian A: Tentang & Visi Misi (Load dari partial _profil) --}}
+            {{-- Pastikan di dalam _profil.blade.php Anda menggunakan ID section yang sesuai atau biarkan wrapper ini yang mengaturnya --}}
+            
+            <section id="tentang-desa" class="mb-5">
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+                    @include('partials._profil', ['profil' => $profil])
                 </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/profil">Profil Desa</a></li>
-                        <li><a href="/#berita">Berita</a></li>
-                        <li><a href="#">Galeri</a></li>
-                        <li><a href="#kontak">Kontak Kami</a></li>
-                    </ul>
+            </section>
+
+            {{-- Bagian B: Aparatur Desa --}}
+            <section id="pemerintahan" class="mb-5">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                        <i class="bi bi-diagram-3-fill fs-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-dark">Struktur Pemerintahan</h3>
+                        <p class="text-muted mb-0">Aparatur Desa {{ $profil->nama_desa ?? 'Sukamaju' }}</p>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5 class="mb-3 fw-bold">Kontak</h5>
-                    <p><i class="bi bi-geo-alt-fill me-2"></i>Jl. Raya Sukamaju No. 1, Kec. Cibeber, Kab. Cianjur, Jawa Barat 43262</p>
-                    <p><i class="bi bi-telephone-fill me-2"></i>(0263) 123-456</p>
-                    <p><i class="bi bi-envelope-fill me-2"></i>kontak@sukamaju.desa.id</p>
+
+                @include('partials._aparatur', ['aparaturs' => $aparaturs])
+            </section>
+
+            {{-- Bagian C: Peta Wilayah (Opsional / Placeholder jika belum ada partial peta) --}}
+            <section id="peta-wilayah" class="mb-5">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                        <i class="bi bi-geo-alt-fill fs-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-dark">Lokasi Desa</h3>
+                        <p class="text-muted mb-0">Peta Wilayah Administratif</p>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                     <h5 class="mb-3 fw-bold">Lokasi Kami</h5>
-                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!m12!1m3!1d15843.95761560737!2d107.08643869999999!3d-6.8918239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6857e84166c3c7%3A0x6b4c304d3d789e92!2sSukamaju%2C%2C%20Cianjur%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1663742813589!5m2!1sen!2sid" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-            <hr>
-            <div class="row text-center">
-                <p>&copy; 2025 Hak Cipta Dilindungi - Pemerintah Desa Sukamaju</p>
-            </div>
+                
+                {{-- Jika Anda punya partial peta, include di sini --}}
+                @include('partials._peta') 
+            </section>
+
         </div>
-    </footer>
+    </div>
+</div>
 
+{{-- Script untuk Navigasi Aktif saat Scroll (ScrollSpy Sederhana) --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sticky-nav .nav-link");
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html>
+        window.onscroll = () => {
+            var current = "";
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((li) => {
+                li.classList.remove("active");
+                if (li.getAttribute("href").includes(current)) {
+                    li.classList.add("active");
+                }
+            });
+        };
+    });
+</script>
+
+@endsection
