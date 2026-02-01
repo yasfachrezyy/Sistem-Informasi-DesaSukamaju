@@ -104,14 +104,51 @@
 
     /* Responsif adjustments */
     @media (max-width: 768px) {
-        .hero-carousel .carousel-item { height: 70vh; min-height: 400px; }
-        .hero-carousel h1 { font-size: 2.2rem; }
-        .section-title { font-size: 1.75rem; margin-bottom: 2rem; }
+        .hero-carousel .carousel-item { 
+            height: 85vh; /* Sedikit lebih tinggi agar proporsional */
+            min-height: 500px; 
+        }
+        
+        .hero-carousel .carousel-caption {
+            /* PERBAIKAN UTAMA: Taruh teks di paling bawah */
+            bottom: 140px !important; /* Jarak dari bawah layar */
+            left: 5% !important;
+            right: 5% !important;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        .hero-carousel h1 { 
+            font-size: 1.8rem; 
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .hero-carousel p { 
+            font-size: 0.95rem; 
+            margin-bottom: 15px;
+            /* Membatasi teks agar tidak terlalu panjang ke bawah */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            opacity: 0.9;
+        }
+
+        .hero-carousel .btn {
+            font-size: 0.85rem;
+            padding: 8px 20px !important;
+        }
+
+        /* Geser indikator (titik-titik carousel) agar tidak menutupi tombol */
+        .hero-carousel .carousel-indicators {
+            bottom: 10px;
+        }
     }
 </style>
 
 {{-- HERO SECTION (Carousel) --}}
-<header id="hero-carousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+<header id="hero-carousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
     <div class="carousel-indicators mb-4">
         <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"></button>
         <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"></button>
@@ -120,37 +157,31 @@
     <div class="carousel-inner">
         <div class="carousel-item active" style="background-image: url('{{ asset('images/kantor-desa.jpg') }}');">
             <div class="carousel-caption">
-                <span class="badge bg-success bg-opacity-75 mb-3 px-3 py-2 rounded-pill fw-light tracking-wide text-uppercase">Website Resmi</span>
-                <h1>Selamat Datang</h1>
-                <p>Pemerintah Desa Sukamaju, Kabupaten Cianjur. Media informasi dan pelayanan publik digital.</p>
-                <div class="mt-4">
-                    <a href="#sambutan" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm">Jelajahi Desa <i class="bi bi-arrow-down ms-1"></i></a>
+                <span class="badge bg-success mb-2 px-3 py-2 rounded-pill fw-bold text-uppercase" style="font-size: 0.7rem;">Website Resmi</span>
+                <h1 class="text-white">Selamat Datang</h1>
+                <p class="text-white opacity-90">Pemerintah Desa Sukamaju, Kabupaten Cianjur. Media informasi dan pelayanan publik digital.</p>
+                <div class="mt-3">
+                    <a href="#sambutan" class="btn btn-success rounded-pill shadow fw-bold">Jelajahi Desa <i class="bi bi-arrow-down ms-1"></i></a>
                 </div>
             </div>
         </div>
+
         <div class="carousel-item" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
             <div class="carousel-caption">
-                <span class="badge bg-warning text-dark bg-opacity-75 mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase">Pesona Alam</span>
-                <h1>Potensi Agrowisata</h1>
-                <p>Menjelajahi keindahan alam, persawahan hijau, dan potensi pertanian unggulan desa.</p>
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill fw-bold text-uppercase" style="font-size: 0.7rem;">Pesona Alam</span>
+                <h1 class="text-white">Potensi Agrowisata</h1>
+                <p class="text-white opacity-90">Menjelajahi keindahan alam, persawahan hijau, dan potensi pertanian unggulan desa.</p>
             </div>
         </div>
+
         <div class="carousel-item" style="background-image: url('{{ asset('images/phbn.jpg') }}');">
             <div class="carousel-caption">
-                <span class="badge bg-primary bg-opacity-75 mb-3 px-3 py-2 rounded-pill fw-light text-uppercase">Komunitas</span>
-                <h1>Guyub Rukun</h1>
-                <p>Membangun desa dengan semangat gotong royong dan kebersamaan warga masyarakat.</p>
+                <span class="badge bg-primary mb-2 px-3 py-2 rounded-pill fw-bold text-uppercase" style="font-size: 0.7rem;">Komunitas</span>
+                <h1 class="text-white">Guyub Rukun</h1>
+                <p class="text-white opacity-90">Membangun desa dengan semangat gotong royong dan kebersamaan warga masyarakat.</p>
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
 </header>
 
 {{-- KONTEN UTAMA --}}
