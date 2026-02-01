@@ -63,3 +63,22 @@ Route::prefix('infografis')->name('infografis.')->group(function () {
 });
 
 Route::get('/peta-desa', [PetaController::class, 'index'])->name('peta.desa');
+
+Route::get('/fix-storage', function () {
+    // 1. Hapus folder storage yang mungkin corrupt di public
+    $shortcut = public_path('storage');
+    if (File::exists($shortcut)) {
+        File::delete($shortcut); // Jika itu file/link
+        // Jika itu folder beneran, gunakan: File::deleteDirectory($shortcut);
+    }
+
+    // 2. Buat symlink manual menggunakan fungsi PHP
+    $target = storage_path('app/public');
+    $link = public_path('storage');
+    
+    if (symlink($target, $link)) {
+        return "Symlink Berhasil Dibuat!";
+    } else {
+        return "Gagal membuat symlink. Cek izin folder.";
+    }
+});
