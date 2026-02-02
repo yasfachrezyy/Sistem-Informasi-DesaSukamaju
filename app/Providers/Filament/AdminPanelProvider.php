@@ -47,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+                \App\Filament\Widgets\DashboardHeroWidget::class,
                 // Widgets\FilamentInfoWidget::class, // <-- SAYA KOMENTARI INI AGAR WIDGET INFO FILAMENT HILANG
             ])
             ->middleware([
